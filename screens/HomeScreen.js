@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
-import { Platform, Dimensions, View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Icon from '@expo/vector-icons/Ionicons';
+import React from 'react';
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 
-class Home extends Component{
-    render(){
-        return (
-            <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
+const HomeScreen = ({navigation}) => {
+  return (
+    <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
                     <View style={styles.card}>
@@ -38,39 +42,10 @@ class Home extends Component{
                     </View>
                 </ScrollView>
             </View>
-        )
-    }
-}
+  );
+};
 
-{/* <View style={{ flex: 1, justifyContent: 'center' , marginHorizontal: 15 }}>
-              <Text style={{ fontSize: 25, fontWeight : 'bold', alignSelf: 'center' }}> Welcome and Greeting</Text>
-              <Text >&emsp;&emsp; Fakultas Ilmu Komputer, Universitas Klabat ini dibuat untuk melayani kebutuhan informasi bagi Staff, Dosen, Mahasiswa, alumni, pengguna lulusan, dan masyarakat umum. Website ini berisikan Informasi organisasional, akademik, maupun berita-berita yang sedang dan akan terjadi di Fakultas Ilmu Komputer, Universitas KLabat. Melalui website ini semua pihak bisa mendapatkan informasi yang terpercaya dan dapat meningkatkan citra serta meningkatkan kepercayaan terhadap Fakultas Ilmu Komputer, Universitas Klabat.</Text>
-    </View> */}
- 
-const StackNavigator =  createStackNavigator({
-    Home: Home
-},{
-    defaultNavigationOptions: ({ navigation }) => {
-        return {
-            headerLeft: (
-                <Icon
-                    style={{ paddingLeft: 10 }}
-                    onPress={() => navigation.openDrawer()}
-                    name="md-menu"
-                    size={30}
-                />
-            ),
-            headerTintColor: 'white',
-            headerStyle: {
-                borderBottomColor: 'transparent',
-                backgroundColor: '#3575D3',
-            },
-            headerTitle: "FIK Information App"
-        }
-  }
-});
-
-export default createAppContainer(StackNavigator);
+export default HomeScreen;
 
 const styles = StyleSheet.create({
     container:{
@@ -174,4 +149,4 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     }
-  });   
+  });
