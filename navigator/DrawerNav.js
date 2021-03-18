@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Dimensions, Text, View, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
-import { createDrawerNavigator, createAppContainer } from '@react-navigation/drawer';
-import { NavigationActions } from '@react-navigation/drawer';
+import { Platform, Dimensions, Text, View, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import { createDrawerNavigator, createAppContainer } from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
 
 import Home from '../screens/Home';
 import Curriculum from '../screens/Curriculum';
@@ -84,7 +84,9 @@ const DrawerConfig = {
 const DrawerNavigator =  createDrawerNavigator(
 	{
         Home: Home,
-
+        Curriculum: Curriculum,
+        ContactUs: ContactUs,
+        AboutUs: AboutUs
 	},{
         contentComponent: SideMenu,
         DrawerConfig
