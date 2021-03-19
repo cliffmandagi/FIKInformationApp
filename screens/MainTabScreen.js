@@ -35,7 +35,17 @@ const MainTabScreen = () => (
         options={{
           tabBarLabel: 'Detail',
           tabBarIcon: ({ color }) => (
-            <Icon name="ios-bell" color={color} size={26} />
+            <Icon name="ios-compass" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Test"
+        component={TestStackScreen}
+        options={{
+          tabBarLabel: 'Test',
+          tabBarIcon: ({ color }) => (
+            <Icon name="ios-compass" color={color} size={26} />
           ),
         }}
       />
@@ -68,6 +78,25 @@ const HomeStackScreen = ({navigation}) => (
   );
   
   const DetailStackScreen = ({navigation}) => (
+    <DetailStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#0c5aa8",
+      },
+      headerTintColor: "#fff",
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Image
+            source={require('../assets/menu-outline.png')} style={{ height: 40, width: 25, marginHorizontal: 10 }}
+          />
+        </TouchableOpacity>
+      )
+    }}
+    >
+      <DetailStack.Screen name="Detail" component={DetailScreen}/>
+    </DetailStack.Navigator>
+  );
+
+  const TestStackScreen = ({navigation}) => (
     <DetailStack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: "#0c5aa8",
