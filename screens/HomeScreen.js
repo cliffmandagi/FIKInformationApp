@@ -11,7 +11,17 @@ import {
 const HomeScreen = ({navigation}) => {
   return (
     <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
-                <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{ flex: 2 }}>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+        <View style={{ backgroundColor: 'red', width: 415 }}>
+          <Image style={styles.cardImage} source={require('../assets/news3.jpg')}/>
+        </View>
+        <View style={{ backgroundColor: 'blue', width: 415 }}>
+        </View>
+      </ScrollView>
+      </View>
+      <View style={{ flex: 3 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
                     <View style={styles.card}>
                         <Image style={styles.cardImage} source={require('../assets/news1.jpg')}/>
@@ -41,6 +51,8 @@ const HomeScreen = ({navigation}) => {
                         </View>
                     </View>
                 </ScrollView>
+
+      </View>
             </View>
   );
 };

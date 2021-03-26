@@ -3,7 +3,7 @@ import React from 'react';
 import HomeScreen from './HomeScreen';
 import DetailScreen from './DetailScreen';
 
-import { View, Text, Button, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -39,16 +39,6 @@ const MainTabScreen = () => (
           ),
         }}
       />
-      <Tab.Screen
-        name="Test"
-        component={TestStackScreen}
-        options={{
-          tabBarLabel: 'Test',
-          tabBarIcon: ({ color }) => (
-            <Icon name="ios-compass" color={color} size={26} />
-          ),
-        }}
-      />
     </Tab.Navigator>
 );
 
@@ -66,12 +56,8 @@ const HomeStackScreen = ({navigation}) => (
     >
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Image
-              source={require('../assets/menu-outline.png')} style={{ height: 40, width: 25, marginHorizontal: 10 }}
-            />
-          </TouchableOpacity>
+        headerLeft: ({ color }) => (
+          <Icon name="ios-menu" color={color} size={35}/>
         )
       }}/>
     </HomeStack.Navigator>
@@ -83,31 +69,8 @@ const HomeStackScreen = ({navigation}) => (
         backgroundColor: "#0c5aa8",
       },
       headerTintColor: "#fff",
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Image
-            source={require('../assets/menu-outline.png')} style={{ height: 40, width: 25, marginHorizontal: 10 }}
-          />
-        </TouchableOpacity>
-      )
-    }}
-    >
-      <DetailStack.Screen name="Detail" component={DetailScreen}/>
-    </DetailStack.Navigator>
-  );
-
-  const TestStackScreen = ({navigation}) => (
-    <DetailStack.Navigator screenOptions={{
-      headerStyle: {
-        backgroundColor: "#0c5aa8",
-      },
-      headerTintColor: "#fff",
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Image
-            source={require('../assets/menu-outline.png')} style={{ height: 40, width: 25, marginHorizontal: 10 }}
-          />
-        </TouchableOpacity>
+      headerLeft: ({ color }) => (
+        <Icon name="ios-menu" color={color} size={35}/>
       )
     }}
     >
