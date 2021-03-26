@@ -1,7 +1,8 @@
 import React from 'react';
 
 import HomeScreen from './HomeScreen';
-import DetailScreen from './DetailScreen';
+import CategoryScreen from './CategoryScreen';
+import BookmarkScreen from './BookmarkScreen';
 
 import { View, Text, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,7 +11,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const HomeStack = createStackNavigator();
-const DetailStack = createStackNavigator();
+const CategoryStack = createStackNavigator();
+const BookmarkStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
@@ -30,12 +32,22 @@ const MainTabScreen = () => (
         }}
       />
       <Tab.Screen
-        name="Detail"
-        component={DetailStackScreen}
+        name="Category"
+        component={CategoryStackScreen}
         options={{
-          tabBarLabel: 'Detail',
+          tabBarLabel: 'Category',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-compass" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Bookmark"
+        component={BookmarkStackScreen}
+        options={{
+          tabBarLabel: 'Bookmark',
+          tabBarIcon: ({ color }) => (
+            <Icon name="ios-book" color={color} size={26} />
           ),
         }}
       />
@@ -57,23 +69,38 @@ const HomeStackScreen = ({navigation}) => (
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
         headerLeft: ({ color }) => (
-          <Icon name="ios-menu" color={color} size={35}/>
+          <Icon name="ios-menu" color={color} size={35} onPress={() => navigation.openDrawer()}/>
         )
       }}/>
     </HomeStack.Navigator>
   );
   
-  const DetailStackScreen = ({navigation}) => (
-    <DetailStack.Navigator screenOptions={{
+  const CategoryStackScreen = ({navigation}) => (
+    <CategoryStack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: "#0c5aa8",
       },
       headerTintColor: "#fff",
       headerLeft: ({ color }) => (
-        <Icon name="ios-menu" color={color} size={35}/>
+        <Icon name="ios-menu" color={color} size={35} onPress={() => navigation.openDrawer()}/>
       )
     }}
     >
-      <DetailStack.Screen name="Detail" component={DetailScreen}/>
-    </DetailStack.Navigator>
+      <CategoryStack.Screen name="Category" component={CategoryScreen}/>
+    </CategoryStack.Navigator>
+  );
+
+  const BookmarkStackScreen = ({navigation}) => (
+    <BookmarkStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#0c5aa8",
+      },
+      headerTintColor: "#fff",
+      headerLeft: ({ color }) => (
+        <Icon name="ios-menu" color={color} size={35} onPress={() => navigation.openDrawer()}/>
+      )
+    }}
+    >
+      <BookmarkStack.Screen name="Bookmark" component={BookmarkScreen}/>
+    </BookmarkStack.Navigator>
   );
