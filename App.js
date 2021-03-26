@@ -8,8 +8,8 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Navigator initialRouteName="Main">
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Main" drawerContent={props => <DrawerContent {...props} />}>
         <Drawer.Screen name="Main" component={MainTabScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
