@@ -68,9 +68,6 @@ const HomeStackScreen = ({navigation}) => (
     >
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
-        headerLeft: ({ color }) => (
-          <Icon name="ios-menu" color={color} size={35} onPress={() => navigation.openDrawer()}/>
-        ),
         headerRight: ({ color }) => (
           <Icon name="ios-search" color={color} size={35} onPress={() => {}}/>
         )
