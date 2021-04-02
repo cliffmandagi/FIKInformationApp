@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import HomeScreen from './HomeScreen';
 import CategoryScreen from './CategoryScreen';
@@ -15,7 +15,10 @@ const CategoryStack = createStackNavigator();
 const BookmarkStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-const MainTabScreen = () => (
+import { AuthContext } from '../navigation/AuthProvider';
+
+const MainTabScreen = () => {
+  return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#f4cf08"
@@ -52,11 +55,14 @@ const MainTabScreen = () => (
         }}
       />
     </Tab.Navigator>
-);
+    )
+}
 
 export default MainTabScreen;
 
-const HomeStackScreen = ({navigation}) => (
+const HomeStackScreen = ({navigation}) => {
+  const {logout} = useContext(AuthContext);
+  return (
     <HomeStack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: "#0c5aa8",
@@ -69,11 +75,14 @@ const HomeStackScreen = ({navigation}) => (
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
         headerRight: ({ color }) => (
-          <Icon name="ios-search" color={color} size={35} onPress={() => {}}/>
+          <Icon name="ios-search-outline" color={color} size={35} onPress={() => {}}/>
+        ),
+        headerLeft: ({ color }) => (
+          <Icon name="ios-log-out-outline" color={color} size={35} onPress={() => logout()}/>
         )
       }}/>
     </HomeStack.Navigator>
-  );
+  )};
   
   const CategoryStackScreen = ({navigation}) => (
     <CategoryStack.Navigator screenOptions={{
@@ -81,14 +90,11 @@ const HomeStackScreen = ({navigation}) => (
         backgroundColor: "#0c5aa8",
       },
       headerTintColor: "#fff",
-      headerLeft: ({ color }) => (
-        <Icon name="ios-menu" color={color} size={35} onPress={() => navigation.openDrawer()}/>
-      )
     }}
     >
       <CategoryStack.Screen name="Category" component={CategoryScreen}/>
     </CategoryStack.Navigator>
-  );
+  )
 
   const BookmarkStackScreen = ({navigation}) => (
     <BookmarkStack.Navigator screenOptions={{
@@ -96,9 +102,6 @@ const HomeStackScreen = ({navigation}) => (
         backgroundColor: "#0c5aa8",
       },
       headerTintColor: "#fff",
-      headerLeft: ({ color }) => (
-        <Icon name="ios-menu" color={color} size={35} onPress={() => navigation.openDrawer()}/>
-      )
     }}
     >
       <BookmarkStack.Screen name="Bookmark" component={BookmarkScreen}/>

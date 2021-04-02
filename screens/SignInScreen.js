@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,12 +9,13 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import { AuthContext } from '../navigation/AuthProvider';
 
 const SignInScreen = ({navigation}) => {
-    const [data, setData] = React.useState({
-        email: '',
-        password: '',
-    })
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const {login} = useContext(AuthContext)
 
     return (
             <View style={styles.container}>
@@ -25,7 +26,9 @@ const SignInScreen = ({navigation}) => {
                 <TextInput style={styles.inputs}
                     placeholder="Email"
                     keyboardType="email-address"
-                    underlineColorAndroid='transparent'/>
+                    underlineColorAndroid='transparent'
+                    onChangeText={(userEmail => setEmail(userEmail))}
+                    />
                 <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/nolan/40/000000/email.png'}}/>
                 </View>
                 
@@ -34,7 +37,9 @@ const SignInScreen = ({navigation}) => {
                     placeholder="Password"
                     secureTextEntry={true}
                     underlineColorAndroid='transparent'
-                    autoCapitalize="none"/>
+                    autoCapitalize="none"
+                    onChangeText={(userPassword) => setPassword(userPassword)}
+                    />
                 <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/nolan/40/000000/key.png'}}/>
                 </View>
 
@@ -42,7 +47,7 @@ const SignInScreen = ({navigation}) => {
                     <Text style={styles.btnText}>Forgot your password?</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => alert('Login')}>
+                <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => login(email, password)}>
                     <Text style={styles.loginText, {fontWeight: 'bold', color:'white'}}>Sign In</Text>
                 </TouchableOpacity>
 

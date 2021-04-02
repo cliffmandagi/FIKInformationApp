@@ -1,16 +1,8 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import MainTabScreen from './screens/MainTabScreen';
-
-import RootStackScreen from './screens/RootStackScreen';
+import Providers from './navigation';
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <RootStackScreen />
-      {/* <MainTabScreen /> */}
-    </NavigationContainer>
-  )
+  return <Providers />;
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,11 +10,14 @@ import {
   Image,
 } from 'react-native';
 
+import { AuthContext } from '../navigation/AuthProvider';
+
 const SignInScreen = ({navigation}) => {
-    const [data, setData] = React.useState({
-        email: '',
-        password: '',
-    })
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+
+    const {register} = useContext(AuthContext);
 
     return (
             <View style={styles.container}>
@@ -22,7 +25,9 @@ const SignInScreen = ({navigation}) => {
                 <TextInput style={styles.inputs}
                     placeholder="Email"
                     keyboardType="email-address"
-                    underlineColorAndroid='transparent'/>
+                    underlineColorAndroid='transparent'
+                    onChangeText={(userEmail) => setEmail(userEmail)}
+                    />
                 <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/nolan/40/000000/email.png'}}/>
                 </View>
                 
@@ -31,7 +36,9 @@ const SignInScreen = ({navigation}) => {
                     placeholder="Password"
                     secureTextEntry={true}
                     underlineColorAndroid='transparent'
-                    autoCapitalize="none"/>
+                    autoCapitalize="none"
+                    onChangeText={(userPassword) => setPassword(userPassword)}
+                    />
                 <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/nolan/40/000000/key.png'}}/>
                 </View>
 
@@ -40,11 +47,20 @@ const SignInScreen = ({navigation}) => {
                     placeholder="Confirm Password"
                     secureTextEntry={true}
                     underlineColorAndroid='transparent'
-                    autoCapitalize="none"/>
+                    autoCapitalize="none"
+                    onChangeText={(confirmPass) => setConfirmPassword(confirmPass)}
+                    />
                 <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/nolan/40/000000/key.png'}}/>
                 </View>
 
-                <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => [navigation.goBack(), alert('Sign Up Successful!')]}>
+                <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => {
+                    if(password == confirmPassword){
+                        [alert('Sign Up Successful!', register(email, password))]
+                    }
+                    else{
+                        alert("Password didn't match!")
+                    }
+                }}>
                     <Text style={styles.loginText, {fontWeight: 'bold', color:'white'}}>Register</Text>
                 </TouchableOpacity>
         </View>
