@@ -43,10 +43,6 @@ const SignInScreen = ({navigation}) => {
                 <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/nolan/40/000000/key.png'}}/>
                 </View>
 
-                <TouchableOpacity style={styles.btnForgotPassword} onPress={() => alert('Forgot')}>
-                    <Text style={styles.btnText}>Forgot your password?</Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => login(email, password)}>
                     <Text style={styles.loginText, {fontWeight: 'bold', color:'white'}}>Sign In</Text>
                 </TouchableOpacity>

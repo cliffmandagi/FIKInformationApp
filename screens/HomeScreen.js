@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,60 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
+import database from '@react-native-firebase/database';
 
 const HomeScreen = ({navigation}) => {
+  const [news, setNews] = useState({});
+  const [refreshing, setRefreshing] = useState(false);
+  const ref = database().ref('News/')
+
+    const newsKey = Object.keys(news);
+
+    const onRefresh = useCallback(() => {
+      setRefreshing(true);
+
+      ref.once('value', snapshot => {
+        setNews(snapshot.val());
+      })
+
+      setRefreshing(false);
+    }, []);
+
+    useEffect(() => {
+        ref.once('value', snapshot => {
+            setNews(snapshot.val());
+        })
+    },[])
+
+    const TestImage = (item) => {
+      if(news[item].Image == null){
+        return (
+          <Image style={styles.cardImage} 
+          source={require('../assets/NoImage.jpg')}/>
+        )
+      } else {
+        return (
+          <Image style={styles.cardImage} 
+          source={{uri: `data:image/png;base64,${news[item].Image}`}}/>
+        )
+      }
+    }
+
   return (
     <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
       <View style={{ flex: 3 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{ flex: 2 }}>
+      <ScrollView showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
+      >
+        <View style={{ flex: 2 }}>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
         <View style={{ backgroundColor: 'red', width: 415 }}>
           <Image style={styles.cardImage} source={require('../assets/news3.jpg')}/>
@@ -22,38 +68,24 @@ const HomeScreen = ({navigation}) => {
         </View>
       </ScrollView>
       </View>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
-                    <View style={styles.card}>
-                        <Image style={styles.cardImage} source={require('../assets/news1.jpg')}/>
-                            <View style={styles.cardHeader}>
-                            <View>
-                                <Text style={styles.title}>Kunjungan Menteri Pariwisata</Text>
-                                <Text style={styles.description}>Kuliah Umum Menteri Pariwisata Republik Indonesia, Dr. Ir. Arief Yahya, M.Sc., di kampus Universitas Klabat, Rabu, 27 Maret 2019 dengan topik "Digital and Millenials Tourism</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.card}>
-                        <Image style={styles.cardImage} source={require('../assets/news2.jpg')}/>
-                            <View style={styles.cardHeader}>
-                            <View>
-                                <Text style={styles.title}>6th International Scholars Conference, Philippines</Text>
-                                <Text style={styles.description}>The International Scholars Conference adalah konferensi penelitian multidisiplin yang diselenggarakan oleh kemitraan dari empat perguruan tinggi, yaitu Adventist University of the Philippines (AUP), Asia-Pacific International University (APIU)</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.card}>
-                        <Image style={styles.cardImage} source={require('../assets/news3.jpg')}/>
-                            <View style={styles.cardHeader}>
-                            <View>
-                                <Text style={styles.title}>Swakelola APTIKOM untuk pelaku industri rumahan</Text>
-                                <Text style={styles.description}>Selama 2 hari, Asosiasi Pendidikan Tinggi Ilmu Komputer (APTIKOM) wilayah Sulawesi Utara telah melangsungkan kegiatan Swakelola dalam rangka Pelatihan Peningkatan Produk Pelaku Industri Rumahan melalui Teknologi Informasi (ICT) di propinsi Sulawesi Utara</Text>
-                            </View>
-                        </View>
-                    </View>
-                </ScrollView>
+        <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
 
-      </View>
+        {newsKey.map((item) => (
+          <TouchableOpacity style={styles.card} key={item}>
+            {TestImage(item)}
+          <View style={styles.cardHeader}>
+            <View>
+              <Text style={styles.title}>{news[item].Title}</Text>
+              <Text style={styles.description}>{news[item].Description}</Text>
+              <Text style={styles.description, {color: '#0c5aa8', fontWeight: 'bold'}}>Read More</Text>
             </View>
+          </View>
+        </TouchableOpacity>
+        ))}
+
+      </ScrollView>
+      </View>
+    </View>
   );
 };
 

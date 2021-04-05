@@ -10,57 +10,33 @@ import {
   FlatList,
 } from 'react-native';
 
-export default class CategoryScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [
-        {id:1, title: "Category 1", image:"https://img.icons8.com/color/70/000000/cottage.png"},
-        {id:1, title: "Category 2", image:"https://img.icons8.com/color/70/000000/administrator-male.png"},
-        {id:2, title: "Category 3", image:"https://img.icons8.com/color/70/000000/filled-like.png"} ,
-        {id:3, title: "Category 4", image:"https://img.icons8.com/color/70/000000/facebook-like.png"} ,
-        {id:4, title: "Category 5", image:"https://img.icons8.com/color/70/000000/shutdown.png"} ,
-        {id:5, title: "Category 6", image:"https://img.icons8.com/color/70/000000/traffic-jam.png"} ,
-        {id:6, title: "Category 7", image:"https://img.icons8.com/dusk/70/000000/visual-game-boy.png"} ,
-        {id:8, title: "Category 8", image:"https://img.icons8.com/flat_round/70/000000/cow.png"} ,
-        {id:9, title: "Category 9", image:"https://img.icons8.com/color/70/000000/coworking.png"} ,
-        {id:9, title: "Category 10",image:"https://img.icons8.com/nolan/70/000000/job.png"} ,
+export default CategoryScreen = () => {
+      const data = [
+        {id:1, title: "General", image:"https://img.icons8.com/color/70/000000/cottage.png"},
+        {id:2, title: "Category 2", image:"https://img.icons8.com/color/70/000000/administrator-male.png"},
+        {id:3, title: "Category 3", image:"https://img.icons8.com/color/70/000000/filled-like.png"} ,
+        {id:4, title: "Category 4", image:"https://img.icons8.com/color/70/000000/facebook-like.png"} ,
+        {id:5, title: "Category 5", image:"https://img.icons8.com/color/70/000000/shutdown.png"} ,
       ]
-    };
-  }
 
-  clickEventListener(item) {
-    Alert.Alert(item.title)
-  }
-
-  render() {
     return (
-      <View style={styles.container}>
-        <FlatList style={styles.list}
-          contentContainerStyle={styles.listContainer}
-          data={this.state.data}
-          horizontal={false}
-          numColumns={2}
-          keyExtractor= {(item) => {
-            return item.id;
-          }}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity style={styles.card} onPress={() => {this.clickEventListener(item.view)}}>
-                <View style={styles.cardFooter}></View>
-                <Image style={styles.cardImage} source={{uri:item.image}}/>
-                <View style={styles.cardHeader}>
-                  <View style={{alignItems:"center", justifyContent:"center"}}>
-                    <Text style={styles.title}>{item.title}</Text>
-                  </View>
+      <View style={{ flex: 1}}>
+        <ScrollView style={styles.list}>
+          {data.map((item) => (
+            <TouchableOpacity style={styles.card} onPress={() => {console.log('Test')}}key={item.id}>
+              <View style={styles.cardFooter}></View>
+              <Image style={styles.cardImage} source={{uri:item.image}}/>
+              <View style={styles.cardHeader}>
+                <View style={{alignItems:"center", justifyContent:"center"}}>
+                  <Text style={styles.title}>{item.title}</Text>
                 </View>
-              </TouchableOpacity>
-            )
-          }}/>
+              </View>
+          </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
-    );
-  }
-};
+    )
+  };
 
 const styles = StyleSheet.create({
   container:{

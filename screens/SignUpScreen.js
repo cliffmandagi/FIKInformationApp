@@ -21,6 +21,9 @@ const SignInScreen = ({navigation}) => {
 
     return (
             <View style={styles.container}>
+                <View>
+                    <Text style={{ marginBottom: 30, fontSize: 27, fontWeight: 'bold', color: 'gray' }}>Create Your Account!</Text>
+                </View>
                 <View style={styles.inputContainer}>
                 <TextInput style={styles.inputs}
                     placeholder="Email"
@@ -55,14 +58,16 @@ const SignInScreen = ({navigation}) => {
 
                 <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => {
                     if(password == confirmPassword){
-                        [alert('Sign Up Successful!', register(email, password))]
+                        register(email, password)
                     }
                     else{
                         alert("Password didn't match!")
                     }
                 }}>
-                    <Text style={styles.loginText, {fontWeight: 'bold', color:'white'}}>Register</Text>
+                    <Text style={styles.loginText, {fontWeight: 'bold', color:'white'}}>Sign Up</Text>
                 </TouchableOpacity>
+
+                <Text style={{ textAlign: 'center', marginHorizontal: 70, marginTop: 10, color: 'gray' }}>By clicking sign up button, you agree to our Terms and have read and acknowledge our Privacy Statement.</Text>
         </View>
     )
 }
