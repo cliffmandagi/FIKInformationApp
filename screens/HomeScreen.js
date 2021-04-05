@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import database from '@react-native-firebase/database';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+import Swiper from 'react-native-swiper';
+
 const HomeScreen = ({navigation}) => {
   const [news, setNews] = useState({});
   const [refreshing, setRefreshing] = useState(false);
@@ -59,30 +62,34 @@ const HomeScreen = ({navigation}) => {
         />
       }
       >
-        <View style={{ flex: 2 }}>
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-        <View style={{ backgroundColor: 'red', width: 415 }}>
-          <Image style={styles.cardImage} source={require('../assets/news3.jpg')}/>
-        </View>
-        <View style={{ backgroundColor: 'blue', width: 415 }}>
-        </View>
-      </ScrollView>
+      <View style={{ flex: 2 }}>
+        <Swiper style={{ height: 200 }} showsPagination={true} loop={true} autoplay={true} autoplayTimeout={10}>
+          <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-1.jpg')}/>
+          <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-2.jpg')}/>
+          <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-3.jpg')}/>
+        </Swiper>
+        {/* <View>
+          <Image style={{height: 180, width: null}} source={require('../assets/news3.jpg')}/>
+        </View> */}
       </View>
+
         <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
 
         {newsKey.map((item) => (
           <TouchableOpacity style={styles.card} key={item}>
-            {TestImage(item)}
-          <View style={styles.cardHeader}>
-            <View>
-              <Text style={styles.title}>{news[item].Title}</Text>
-              <Text style={styles.description}>{news[item].Description}</Text>
-              <Text style={styles.description, {color: '#0c5aa8', fontWeight: 'bold'}}>Read More</Text>
+          {TestImage(item)}
+            <View style={{ flex: 2, flexDirection: 'column', marginLeft: 10, justifyContent: 'center' }}>
+              <View>
+                <Text style={styles.title}>{news[item].Title}</Text>
+                <Text style={styles.description}>{news[item].Date}</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
+            <TouchableOpacity style={{ alignItems: 'flex-end', justifyContent: 'flex-end' , marginRight: 10, marginBottom: 10}}>
+                <Icon name="ios-bookmark-outline" color='black' size={26} />
+            </TouchableOpacity>
+          </TouchableOpacity>
         ))}
-
+        
       </ScrollView>
       </View>
     </View>
@@ -104,6 +111,7 @@ const styles = StyleSheet.create({
     },
     /******** card **************/
     card:{
+      flexDirection: 'row',
       shadowColor: '#00000021',
       shadowOffset: {
         width: 2
@@ -113,6 +121,7 @@ const styles = StyleSheet.create({
       marginVertical: 8,
       backgroundColor:"white",
       marginHorizontal: 10,
+      borderRadius: 10,
     },
     cardHeader: {
       paddingVertical: 17,
@@ -138,13 +147,13 @@ const styles = StyleSheet.create({
     },
     cardImage:{
       flex: 1,
-      height: 180,
+      height: 100,
       width: null,
+      borderRadius: 10
     },
     /******** card components **************/
     title:{
-      fontSize:18,
-      flex:1,
+      fontSize:19,
     }, 
     description:{
       fontSize:15,
@@ -192,5 +201,30 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    /*********** Swiper ***************/
+    wrapper: {},
+    slide1: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#9DD6EB'
+    },
+    slide2: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#97CAE5'
+    },
+    slide3: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#92BBD9'
+    },
+    text: {
+      color: '#fff',
+      fontSize: 30,
+      fontWeight: 'bold'
     }
   });

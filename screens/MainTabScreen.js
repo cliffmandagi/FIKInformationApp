@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import HomeScreen from './HomeScreen';
 import CategoryScreen from './CategoryScreen';
 import BookmarkScreen from './BookmarkScreen';
+import SearchScreen from './SearchScreen';
 
 import { View, Text, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -13,6 +14,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 const HomeStack = createStackNavigator();
 const CategoryStack = createStackNavigator();
 const BookmarkStack = createStackNavigator();
+const SearchStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 import { AuthContext } from '../navigation/AuthProvider';
@@ -61,6 +63,7 @@ const MainTabScreen = () => {
 export default MainTabScreen;
 
 const HomeStackScreen = ({navigation}) => {
+
   const {logout} = useContext(AuthContext);
   return (
     <HomeStack.Navigator screenOptions={{
@@ -75,12 +78,17 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
         headerRight: ({ color }) => (
-          <Icon name="ios-search-outline" color={color} size={35} onPress={() => {}}/>
+          <View style={{ marginRight: 7 }}>
+            <Icon name="ios-search-outline" color='white' size={30} onPress={() => navigation.navigate('Search')}/>
+          </View>
         ),
         headerLeft: ({ color }) => (
-          <Icon name="ios-log-out-outline" color={color} size={35} onPress={() => logout()}/>
+          <View style={{ marginLeft: 7 }}>
+            <Icon name="ios-log-out-outline" color='white' size={30} onPress={() => logout()}/>
+          </View>
         )
       }}/>
+      <SearchStack.Screen name="Search" component={SearchScreen}/>
     </HomeStack.Navigator>
   )};
   
