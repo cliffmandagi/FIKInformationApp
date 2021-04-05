@@ -11,7 +11,7 @@ import {
   FlatList
 } from 'react-native';
 
-export default ListWithSearchView = () => {
+export default SearchScreen = () => {
       const data = [
         {id:1, icon:"https://img.icons8.com/color/70/000000/cottage.png", description: "Lorem ipsum dolor sit amet, indu consectetur adipiscing elit"},
         {id:2, icon:"https://img.icons8.com/color/70/000000/administrator-male.png", description: "Lorem ipsum dolor sit amet, indu consectetur adipiscing elit"}, 
@@ -42,8 +42,8 @@ export default ListWithSearchView = () => {
         </View>
         <ScrollView>
         {data.map((item) => (
-            <View style={styles.notificationBox}>
-            <Image style={styles.image} source={{uri: item.icon}}/>
+            <View style={styles.notificationBox} key={item.id}>
+                <Image style={styles.image} source={{uri: item.icon}}/>
             <Text style={styles.description}>{item.description}</Text>
         </View>
         ))}
