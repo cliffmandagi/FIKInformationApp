@@ -10,20 +10,21 @@ import {
   FlatList,
 } from 'react-native';
 
-export default CategoryScreen = () => {
+export default CategoryScreen = ({navigation}) => {
       const data = [
         {id:1, title: "General", image:"https://img.icons8.com/color/70/000000/cottage.png"},
-        {id:2, title: "Category 2", image:"https://img.icons8.com/color/70/000000/administrator-male.png"},
-        {id:3, title: "Category 3", image:"https://img.icons8.com/color/70/000000/filled-like.png"} ,
-        {id:4, title: "Category 4", image:"https://img.icons8.com/color/70/000000/facebook-like.png"} ,
-        {id:5, title: "Category 5", image:"https://img.icons8.com/color/70/000000/shutdown.png"} ,
+        {id:2, title: "Event", image:"https://img.icons8.com/color/70/000000/administrator-male.png"},
+        {id:3, title: "Information System", image:"https://img.icons8.com/color/70/000000/filled-like.png"} ,
+        {id:4, title: "Informatics", image:"https://img.icons8.com/color/70/000000/facebook-like.png"} ,
       ]
 
     return (
       <View style={{ flex: 1}}>
         <ScrollView style={styles.list}>
           {data.map((item) => (
-            <TouchableOpacity style={styles.card} onPress={() => {console.log('Test')}}key={item.id}>
+            <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('CategoryDetail', {
+              categoryPressed: item.title,
+            })} key={item.id}>
               <View style={styles.cardFooter}></View>
               <Image style={styles.cardImage} source={{uri:item.image}}/>
               <View style={styles.cardHeader}>

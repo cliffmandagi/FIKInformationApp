@@ -4,6 +4,8 @@ import HomeScreen from './HomeScreen';
 import CategoryScreen from './CategoryScreen';
 import BookmarkScreen from './BookmarkScreen';
 import SearchScreen from './SearchScreen';
+import NewsScreen from './NewsScreen';
+import CategoryDetailScreen from './CategoryDetailScreen';
 
 import { View, Text, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -89,6 +91,7 @@ const HomeStackScreen = ({navigation}) => {
         )
       }}/>
       <SearchStack.Screen name="Search" component={SearchScreen}/>
+      <SearchStack.Screen name="News" component={NewsScreen}/>
     </HomeStack.Navigator>
   )};
   
@@ -101,6 +104,9 @@ const HomeStackScreen = ({navigation}) => {
     }}
     >
       <CategoryStack.Screen name="Category" component={CategoryScreen}/>
+      <SearchStack.Screen name="CategoryDetail" component={CategoryDetailScreen} options={{
+        headerTitle: "Category"
+      }}/>
     </CategoryStack.Navigator>
   )
 

@@ -1,34 +1,23 @@
-import React, {useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect } from 'react';
 import {
   View,
   Text,
   Image,
   ScrollView,
   StyleSheet,
-  RefreshControl,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import database from '@react-native-firebase/database';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import Swiper from 'react-native-swiper';
 
-const HomeScreen = ({navigation}) => {
-  const [news, setNews] = useState({});
-  const [refreshing, setRefreshing] = useState(false);
-  const ref = database().ref('News/')
+const CategoryDetailScreen = ({navigation, route}) => {
+    const { categoryPressed } = route.params;
+    const [news, setNews] = useState({});
+    const ref = database().ref('News/')
 
     const newsKey = Object.keys(news);
-
-    const onRefresh = useCallback(() => {
-      setRefreshing(true);
-
-      ref.once('value', snapshot => {
-        setNews(snapshot.val());
-      })
-
-      setRefreshing(false);
-    }, []);
 
     useEffect(() => {
         ref.once('value', snapshot => {
@@ -51,59 +40,46 @@ const HomeScreen = ({navigation}) => {
     }
 
   return (
-    <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
-      <View style={{ flex: 3 }}>
-      <ScrollView showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }
-      >
-      <View style={{ flex: 2 }}>
-        <Swiper style={{ height: 200 }} showsPagination={true} loop={true} autoplay={true} autoplayTimeout={10}>
-          <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-1.jpg')}/>
-          <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-2.jpg')}/>
-          <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-3.jpg')}/>
-        </Swiper>
-        {/* <View>
-          <Image style={{height: 180, width: null}} source={require('../assets/news3.jpg')}/>
-        </View> */}
-      </View>
-
-        <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
-
-        {newsKey.map((item) => (
-          <TouchableOpacity style={styles.card} key={item} onPress={() => navigation.navigate('News', {
-            title: news[item].Title,
-            date: news[item].Date,
-            description: news[item].Description,
-            image: TestImage(item),
-            category: news[item].Category,
-          })}>
-            <View style={{ flex: 1, borderRadius: 10, margin: 4 }}>
-              {TestImage(item)}
+          <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
+            <View style={{ flex: 3 }}>
+            <ImageBackground source={require('../assets/backgroundimg.png')} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>{categoryPressed}</Text>
+                {newsKey.map((item) => {
+                    if(news[item].Category == `${categoryPressed}`){
+                        return (
+                            <TouchableOpacity style={styles.card} key={item} onPress={() => navigation.navigate('News', {
+                                title: news[item].Title,
+                                date: news[item].Date,
+                                description: news[item].Description,
+                                image: TestImage(item),
+                                category: news[item].Category,
+                            })}>
+                                <View style={{ flex: 1, borderRadius: 10, margin: 4 }}>
+                                {TestImage(item)}
+                                </View>
+                                <View style={{ flex: 2, flexDirection: 'column', marginLeft: 10, justifyContent: 'center' }}>
+                                <View>
+                                    <Text style={styles.title}>{news[item].Title}</Text>
+                                    <Text style={styles.description}>{news[item].Date}</Text>
+                                </View>
+                                </View>
+                                <TouchableOpacity style={{ alignItems: 'flex-end', justifyContent: 'flex-end' , marginRight: 10, marginBottom: 10}}>
+                                    <Icon name="ios-bookmark-outline" color='black' size={26} />
+                                </TouchableOpacity>
+                            </TouchableOpacity>
+                        )
+                    }
+                })}
+                
+            </ScrollView>
+            </ImageBackground>
             </View>
-            <View style={{ flex: 2, flexDirection: 'column', marginLeft: 10, justifyContent: 'center' }}>
-              <View>
-                <Text style={styles.title}>{news[item].Title}</Text>
-                <Text style={styles.description}>{news[item].Date}</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={{ alignItems: 'flex-end', justifyContent: 'flex-end' , marginRight: 10, marginBottom: 10}}>
-                <Icon name="ios-bookmark-outline" color='black' size={26} />
-            </TouchableOpacity>
-          </TouchableOpacity>
-        ))}
-        
-      </ScrollView>
-      </View>
-    </View>
+        </View>
   );
 };
 
-export default HomeScreen;
+export default CategoryDetailScreen;
 
 const styles = StyleSheet.create({
     container:{
