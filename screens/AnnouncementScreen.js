@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,26 +10,29 @@ import {
   ScrollView,
   Alert
 } from 'react-native';
+import database from '@react-native-firebase/database';
 
-export default BookmarkScreen = ({navigation}) => {
+export default AnnouncementScreen = ({navigation}) => {
+      const [announcement, setAnnouncement] = useState({});
+      const ref = database().ref('Announcement/')
 
-      const data = [
-        {id:1,  description:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."},
-        {id:2,  description:"Aenean massa. Cum sociis natoque penatibus et magnis."    },
-        {id:3,  description:"nascetur ridiculus mus. Donec quam felis, ultricies dnec."},
-        {id:4,  description:"Donec pede justo, fringilla vel, aliquet nec, vulputdate."},
-        {id:5,  description:"Donec pede justo, fringilla vel, aliquet nec, vulputdate."},
-      ]
+      const announcementKey = Object.keys(announcement);
+
+      useEffect(() => {
+          ref.once('value', snapshot => {
+              setAnnouncement(snapshot.val());
+          })
+      },[])
 
     return (
         <View style={{ flex: 1 }}>
           <ScrollView>
-            {data.map((item) => (
-                <TouchableOpacity style={styles.card} onPress={() => {}} key={item.id}>
-                  <View style={styles.cardContent}>
-                    <Text style={[styles.description]}>{item.description}</Text>
-                  </View>
-                </TouchableOpacity>
+            {announcementKey.map((item) => (
+              <View style={styles.card} key={item}>
+                <View style={styles.cardContent}>
+                  <Text style={[styles.description]}>{announcement[item].Title}</Text>
+                </View>
+              </View>
             ))}
           </ScrollView>
         </View>

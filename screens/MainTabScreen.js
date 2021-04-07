@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import HomeScreen from './HomeScreen';
 import CategoryScreen from './CategoryScreen';
-import BookmarkScreen from './BookmarkScreen';
+import AnnouncementScreen from './AnnouncementScreen';
 import SearchScreen from './SearchScreen';
 import NewsScreen from './NewsScreen';
 import CategoryDetailScreen from './CategoryDetailScreen';
@@ -15,8 +15,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 const HomeStack = createStackNavigator();
 const CategoryStack = createStackNavigator();
-const BookmarkStack = createStackNavigator();
 const SearchStack = createStackNavigator();
+const AnnouncementStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 import { AuthContext } from '../navigation/AuthProvider';
@@ -39,6 +39,16 @@ const MainTabScreen = () => {
         }}
       />
       <Tab.Screen
+        name="Announcement"
+        component={AnnouncementStackScreen}
+        options={{
+          tabBarLabel: 'Announcement',
+          tabBarIcon: ({ color }) => (
+            <Icon name="ios-alert-circle" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Category"
         component={CategoryStackScreen}
         options={{
@@ -49,12 +59,12 @@ const MainTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Bookmark"
-        component={BookmarkStackScreen}
+        name="Search"
+        component={SearchStackScreen}
         options={{
-          tabBarLabel: 'Bookmark',
+          tabBarLabel: 'Search',
           tabBarIcon: ({ color }) => (
-            <Icon name="ios-book" color={color} size={26} />
+            <Icon name="ios-search" color={color} size={26} />
           ),
         }}
       />
@@ -81,16 +91,10 @@ const HomeStackScreen = ({navigation}) => {
         headerTitle: "FIK Information App",
         headerRight: ({ color }) => (
           <View style={{ marginRight: 7 }}>
-            <Icon name="ios-search-outline" color='white' size={30} onPress={() => navigation.navigate('Search')}/>
-          </View>
-        ),
-        headerLeft: ({ color }) => (
-          <View style={{ marginLeft: 7 }}>
             <Icon name="ios-log-out-outline" color='white' size={30} onPress={() => logout()}/>
           </View>
         )
       }}/>
-      <SearchStack.Screen name="Search" component={SearchScreen}/>
       <SearchStack.Screen name="News" component={NewsScreen}/>
     </HomeStack.Navigator>
   )};
@@ -110,14 +114,26 @@ const HomeStackScreen = ({navigation}) => {
     </CategoryStack.Navigator>
   )
 
-  const BookmarkStackScreen = ({navigation}) => (
-    <BookmarkStack.Navigator screenOptions={{
+  const SearchStackScreen = ({navigation}) => (
+    <SearchStack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: "#0c5aa8",
       },
       headerTintColor: "#fff",
     }}
     >
-      <BookmarkStack.Screen name="Bookmark" component={BookmarkScreen}/>
-    </BookmarkStack.Navigator>
+      <SearchStack.Screen name="Search" component={SearchScreen}/>
+    </SearchStack.Navigator>
+  );
+
+  const AnnouncementStackScreen = ({navigation}) => (
+    <AnnouncementStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#0c5aa8",
+      },
+      headerTintColor: "#fff",
+    }}
+    >
+      <AnnouncementStack.Screen name="Announcement" component={AnnouncementScreen}/>
+    </AnnouncementStack.Navigator>
   );

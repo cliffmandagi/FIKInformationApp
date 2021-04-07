@@ -88,12 +88,13 @@ const HomeScreen = ({navigation}) => {
             <View style={{ flex: 2, flexDirection: 'column', marginLeft: 10, justifyContent: 'center' }}>
               <View>
                 <Text style={styles.title}>{news[item].Title}</Text>
-                <Text style={styles.description}>{news[item].Date}</Text>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                  <Image source={require('../assets/calendar.png')} style={{ height: 18, width: 18, marginRight: 4 }} />
+                  <Text style={{fontSize: 12, color:"#888", marginTop: 1 }}>{news[item].Date}</Text>
+                </View>
+                  <Text style={styles.description}>Category : {news[item].Category}</Text>
               </View>
             </View>
-            <TouchableOpacity style={{ alignItems: 'flex-end', justifyContent: 'flex-end' , marginRight: 10, marginBottom: 10}}>
-                <Icon name="ios-bookmark-outline" color='black' size={26} />
-            </TouchableOpacity>
           </TouchableOpacity>
         ))}
         
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
       fontSize:19,
     }, 
     description:{
-      fontSize:15,
+      fontSize:14,
       color:"#888",
       flex:1,
       marginTop:5,

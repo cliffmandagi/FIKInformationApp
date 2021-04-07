@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 import database from '@react-native-firebase/database';
 
-import Icon from 'react-native-vector-icons/Ionicons';
-
 const CategoryDetailScreen = ({navigation, route}) => {
     const { categoryPressed } = route.params;
     const [news, setNews] = useState({});
@@ -20,7 +18,7 @@ const CategoryDetailScreen = ({navigation, route}) => {
     const newsKey = Object.keys(news);
 
     useEffect(() => {
-        ref.once('value', snapshot => {
+        ref.on('value', snapshot => {
             setNews(snapshot.val());
         })
     },[])
@@ -61,12 +59,13 @@ const CategoryDetailScreen = ({navigation, route}) => {
                                 <View style={{ flex: 2, flexDirection: 'column', marginLeft: 10, justifyContent: 'center' }}>
                                 <View>
                                     <Text style={styles.title}>{news[item].Title}</Text>
-                                    <Text style={styles.description}>{news[item].Date}</Text>
+                                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                                        <Image source={require('../assets/calendar.png')} style={{ height: 18, width: 18, marginRight: 4 }} />
+                                        <Text style={{fontSize: 12, color:"#888", marginTop: 1 }}>{news[item].Date}</Text>
+                                    </View>
+                                    <Text style={styles.description}>Category : {news[item].Category}</Text>
                                 </View>
                                 </View>
-                                <TouchableOpacity style={{ alignItems: 'flex-end', justifyContent: 'flex-end' , marginRight: 10, marginBottom: 10}}>
-                                    <Icon name="ios-bookmark-outline" color='black' size={26} />
-                                </TouchableOpacity>
                             </TouchableOpacity>
                         )
                     }

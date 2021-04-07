@@ -11,13 +11,44 @@ import {
 } from 'react-native';
 
 import { AuthContext } from '../navigation/AuthProvider';
+import database from '@react-native-firebase/database';
+import { withRepeat } from 'react-native-reanimated';
 
-const SignInScreen = ({navigation}) => {
+const SignUpScreen = ({navigation}) => {
+    const [id, setId] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
 
     const {register} = useContext(AuthContext);
+
+    // const submitUser = (id, email) => {
+    //   return new Promise(function(resolve, reject){
+    //   let key;
+    //   if(id != null) {
+    //     key = id;
+    //   } else {
+    //     key = database()
+    //     .ref('Users/')
+    //     .push().key;
+    //   }
+      
+    //   let dataToSave = {
+    //     id: key,
+    //     Email: email
+    //   }
+      
+    //   database()
+    //     .ref('users/' + key)
+    //     .update(dataToSave)
+    //     .then(snapshot => {
+    //       resolve(snapshot);
+    //     })
+    //     .catch(err => {
+    //       reject(err);
+    //     });
+    //   });
+    // };
 
     return (
             <View style={styles.container}>
@@ -59,6 +90,11 @@ const SignInScreen = ({navigation}) => {
                 <TouchableOpacity style={[styles.buttonContainer, styles.signInButton]} onPress={() => {
                     if(password == confirmPassword){
                         register(email, password)
+                        // submitUser(id, email).then((result) => {
+                        //   console.log('Result : ', result)
+                        // }).catch((error) => {
+                        //   console.log('Error : ', error)
+                        // });
                     }
                     else{
                         alert("Password didn't match!")
@@ -72,7 +108,7 @@ const SignInScreen = ({navigation}) => {
     )
 }
 
-export default SignInScreen;
+export default SignUpScreen;
 
 const resizeMode = 'center';
 

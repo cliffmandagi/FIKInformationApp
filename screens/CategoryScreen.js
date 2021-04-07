@@ -12,10 +12,10 @@ import {
 
 export default CategoryScreen = ({navigation}) => {
       const data = [
-        {id:1, title: "General", image:"https://img.icons8.com/color/70/000000/cottage.png"},
-        {id:2, title: "Event", image:"https://img.icons8.com/color/70/000000/administrator-male.png"},
-        {id:3, title: "Information System", image:"https://img.icons8.com/color/70/000000/filled-like.png"} ,
-        {id:4, title: "Informatics", image:"https://img.icons8.com/color/70/000000/facebook-like.png"} ,
+        {id:1, title: "General", image: require('../assets/general.png')},
+        {id:2, title: "Event", image: require('../assets/events.png')},
+        {id:3, title: "Information System", image: require('../assets/informationsystem.png')},
+        {id:4, title: "Informatics", image: require('../assets/informatics.png')},
       ]
 
     return (
@@ -26,7 +26,7 @@ export default CategoryScreen = ({navigation}) => {
               categoryPressed: item.title,
             })} key={item.id}>
               <View style={styles.cardFooter}></View>
-              <Image style={styles.cardImage} source={{uri:item.image}}/>
+              <Image style={styles.cardImage} source={item.image}/>
               <View style={styles.cardHeader}>
                 <View style={{alignItems:"center", justifyContent:"center"}}>
                   <Text style={styles.title}>{item.title}</Text>
