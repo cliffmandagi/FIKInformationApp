@@ -16,39 +16,11 @@ import { withRepeat } from 'react-native-reanimated';
 
 const SignUpScreen = ({navigation}) => {
     const [id, setId] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+    const [email, setEmail] = useState('a');
+    const [password, setPassword] = useState('a');
+    const [confirmPassword, setConfirmPassword] = useState('a');
 
     const {register} = useContext(AuthContext);
-
-    // const submitUser = (id, email) => {
-    //   return new Promise(function(resolve, reject){
-    //   let key;
-    //   if(id != null) {
-    //     key = id;
-    //   } else {
-    //     key = database()
-    //     .ref('Users/')
-    //     .push().key;
-    //   }
-      
-    //   let dataToSave = {
-    //     id: key,
-    //     Email: email
-    //   }
-      
-    //   database()
-    //     .ref('users/' + key)
-    //     .update(dataToSave)
-    //     .then(snapshot => {
-    //       resolve(snapshot);
-    //     })
-    //     .catch(err => {
-    //       reject(err);
-    //     });
-    //   });
-    // };
 
     return (
             <View style={styles.container}>

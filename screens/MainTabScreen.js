@@ -75,8 +75,6 @@ const MainTabScreen = () => {
 export default MainTabScreen;
 
 const HomeStackScreen = ({navigation}) => {
-
-  const {logout} = useContext(AuthContext);
   return (
     <HomeStack.Navigator screenOptions={{
       headerStyle: {
@@ -89,11 +87,6 @@ const HomeStackScreen = ({navigation}) => {
     >
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
-        headerRight: ({ color }) => (
-          <View style={{ marginRight: 7 }}>
-            <Icon name="ios-log-out-outline" color='white' size={30} onPress={() => logout()}/>
-          </View>
-        )
       }}/>
       <SearchStack.Screen name="News" component={NewsScreen}/>
     </HomeStack.Navigator>

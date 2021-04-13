@@ -11,14 +11,6 @@ export const AuthProvider = ({children}) => {
                 user,
                 setUser,
                 login: async (email, password) => {
-                if(email == null && password == null){
-                    alert("Email and password cannot be empty!");
-                }else if(email == null){
-                    alert("Email cannot be empty!");
-                }else if(password == null){
-                    alert("Password cannot be empty!");
-                }
-                else {
                     try {
                         await auth().signInWithEmailAndPassword(email, password);
                         alert('Sign In Success!')
@@ -27,7 +19,6 @@ export const AuthProvider = ({children}) => {
                         console.log(e);
                         alert(e);
                     }
-                }
                 },
                 register: async (email, password) => {
                     try {

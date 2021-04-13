@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
+  ImageBackground,
   TouchableOpacity,
   FlatList,
   Dimensions,
@@ -26,15 +26,18 @@ export default AnnouncementScreen = ({navigation}) => {
 
     return (
         <View style={{ flex: 1 }}>
+          <ImageBackground source={require('../assets/backgroundimg.png')} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
           <ScrollView>
             {announcementKey.map((item) => (
               <View style={styles.card} key={item}>
                 <View style={styles.cardContent}>
                   <Text style={[styles.description]}>{announcement[item].Title}</Text>
+                  <Text style={{ fontSize: 15, color: 'gray' }}>{announcement[item].Date}</Text>
                 </View>
               </View>
             ))}
           </ScrollView>
+          </ImageBackground>
         </View>
     );
 }

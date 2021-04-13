@@ -40,8 +40,7 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      { user ? <MainTabScreen/> : <RootStackScreen/>}
-      {/* <MainTabScreen /> */}
+      <MainTabScreen/>
     </NavigationContainer>
   )
 }

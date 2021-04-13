@@ -7,10 +7,10 @@ import {
   StyleSheet,
   RefreshControl,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import database from '@react-native-firebase/database';
 
-import Icon from 'react-native-vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 
 const HomeScreen = ({navigation}) => {
@@ -52,6 +52,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={{ flex: 1, backgroundColor:'#E6E6E6' }}>
+      <ImageBackground source={require('../assets/backgroundimg.png')} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
       <View style={{ flex: 3 }}>
       <ScrollView showsVerticalScrollIndicator={false}
       refreshControl={
@@ -62,7 +63,7 @@ const HomeScreen = ({navigation}) => {
       }
       >
       <View style={{ flex: 2 }}>
-        <Swiper style={{ height: 200 }} showsPagination={true} loop={true} autoplay={true} autoplayTimeout={10}>
+        <Swiper style={{ height: 200 }} showsPagination={true} loop={true} autoplay={true} autoplayTimeout={5}>
           <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-1.jpg')}/>
           <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-2.jpg')}/>
           <Image style={{ height: '100%', width: '100%' }} source={require('../assets/slider-3.jpg')}/>
@@ -100,6 +101,7 @@ const HomeScreen = ({navigation}) => {
         
       </ScrollView>
       </View>
+      </ImageBackground>
     </View>
   );
 };

@@ -12,8 +12,8 @@ import {
 import { AuthContext } from '../navigation/AuthProvider';
 
 const SignInScreen = ({navigation}) => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('a');
+    const [password, setPassword] = useState('a');
 
     const {login} = useContext(AuthContext)
 

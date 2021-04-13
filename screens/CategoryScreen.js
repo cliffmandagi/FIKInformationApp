@@ -5,9 +5,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  Alert,
   ScrollView,
-  FlatList,
+  ImageBackground,
 } from 'react-native';
 
 export default CategoryScreen = ({navigation}) => {
@@ -20,6 +19,7 @@ export default CategoryScreen = ({navigation}) => {
 
     return (
       <View style={{ flex: 1}}>
+        <ImageBackground source={require('../assets/backgroundimg.png')} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}>
         <ScrollView style={styles.list}>
           {data.map((item) => (
             <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('CategoryDetail', {
@@ -35,6 +35,7 @@ export default CategoryScreen = ({navigation}) => {
           </TouchableOpacity>
           ))}
         </ScrollView>
+        </ImageBackground>
       </View>
     )
   };
