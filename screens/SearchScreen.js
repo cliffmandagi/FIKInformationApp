@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect, Component, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,26 +8,38 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 
 import database from '@react-native-firebase/database';
 
 export default (SearchScreen = ({navigation}) => {
   const [news, setNews] = useState({});
+  const [refreshing, setRefreshing] = useState(false);
   const ref = database().ref('News/');
 
   const [searchKey, setSearchKey] = useState('');
 
   const newsKey = Object.keys(news);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    ref.once('value', snapshot => {
+      setNews(snapshot.val());
+    });
+
+    setRefreshing(false);
+  }, []);
+
   useEffect(() => {
-    ref.on('value', snapshot => {
+    ref.once('value', snapshot => {
       setNews(snapshot.val());
     });
   }, []);
 
   const TestImage = item => {
-    if (news[item].Image == null) {
+    if (news[item].Img == null) {
       return (
         <Image
           style={styles.cardImage}
@@ -38,7 +50,7 @@ export default (SearchScreen = ({navigation}) => {
       return (
         <Image
           style={styles.cardImage}
-          source={{uri: `data:image/png;base64,${news[item].Image}`}}
+          source={{uri: `data:image/png;base64,${news[item].Img}`}}
         />
       );
     }
@@ -65,7 +77,11 @@ export default (SearchScreen = ({navigation}) => {
             />
           </View>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           {newsKey.map(item => {
             if (
               news[item].Title.toLowerCase().includes(searchKey) ||

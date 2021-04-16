@@ -37,7 +37,7 @@ const HomeScreen = ({navigation}) => {
     },[])
 
     const TestImage = (item) => {
-      if(news[item].Image == null){
+      if(news[item].Img == null){
         return (
           <Image style={styles.cardImage} 
           source={require('../assets/NoImage.jpg')}/>
@@ -45,7 +45,7 @@ const HomeScreen = ({navigation}) => {
       } else {
         return (
           <Image style={styles.cardImage} 
-          source={{uri: `data:image/png;base64,${news[item].Image}`}}/>
+          source={{uri: `data:image/png;base64,${news[item].Img}`}}/>
         )
       }
     }
