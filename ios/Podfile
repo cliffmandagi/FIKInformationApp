@@ -56,6 +56,10 @@ target 'FIKInformationApp' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBMessaging', :path => '../node_modules/@react-native-firebase/messaging'
+
   target 'FIKInformationAppTests' do
     inherit! :complete
     # Pods for testing

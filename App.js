@@ -2,18 +2,29 @@ import React, { useEffect } from 'react';
 import Providers from './navigation';
 import MainTabScreen from './screens/MainTabScreen';
 import { NavigationContainer } from '@react-navigation/native';
-
-import { AppRegistry } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 
 const App = () => {
   useEffect(() => {
-    messaging().setBackgroundMessageHandler(async remoteMessage => {
-      console.log('Message handled in the background!', remoteMessage);
+    messaging().onMessage(async remoteMessage => {
+      console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
-    
-    AppRegistry.registerComponent('app', () => App);
-  }, [])
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log('onNotificationOpenedApp: ',JSON.stringify(remoteMessage));
+    });
+
+    messaging()
+    .getInitialNotification()
+    .then(remoteMessage => {
+      if (remoteMessage) {
+        console.log(
+          'Notification caused app to open from quit state:',
+          JSON.stringify(remoteMessage),
+        );
+      }
+    });
+}, []);
 
   return (
     <Providers />
