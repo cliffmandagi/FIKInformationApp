@@ -76,11 +76,11 @@ const HomeScreen = ({navigation}) => {
         <Text style={{ fontSize: 18, fontWeight: "bold", marginLeft: 20, marginTop: 10 }}>News</Text>
 
         {newsKey.map((item) => (
-          <TouchableOpacity style={styles.card} key={item} onPress={() => navigation.navigate('News', {
+          <TouchableOpacity style={styles.card} key={item} onPress={() => navigation.navigate('NewsHome', {
             title: news[item].Title,
             date: news[item].Date,
             description: news[item].Description,
-            image: TestImage(item),
+            image: news[item].Img,
             category: news[item].Category,
           })}>
             <View style={{ flex: 1, borderRadius: 10, margin: 4 }}>

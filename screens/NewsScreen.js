@@ -9,10 +9,25 @@ import {
 
 export default NewsScreen = ({ route }) => {
     const { title, image, date, description, category } = route.params;
+
+    const TestImage = () => {
+      if(image == null){
+        return (
+          <Image style={styles.cardImage} 
+          source={require('../assets/NoImage.jpg')}/>
+        )
+      } else {
+        return (
+          <Image style={styles.cardImage} 
+          source={{uri: `data:image/png;base64,${image}`}}/>
+        )
+      }
+    }
+
     return (
         <ScrollView>
           <View style={{ height: 250,  flex: 1, justifyContent: 'flex-end' }}>
-            {image}
+            {TestImage()}
           </View>
 
           <View style={{ flex: 3, paddingHorizontal: 20, paddingTop: 20 }}>
@@ -36,6 +51,11 @@ export default NewsScreen = ({ route }) => {
 const styles = StyleSheet.create({
     container:{
       flex:1,
+    },
+    cardImage:{
+      flex: 1,
+      height: 100,
+      width: null,
     },
     header:{
         flex: 1,

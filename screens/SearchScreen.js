@@ -93,11 +93,11 @@ export default (SearchScreen = ({navigation}) => {
                   style={styles.card}
                   key={item}
                   onPress={() =>
-                    navigation.navigate('News', {
+                    navigation.navigate('NewsSearch', {
                       title: news[item].Title,
                       date: news[item].Date,
                       description: news[item].Description,
-                      image: TestImage(item),
+                      image: news[item].Img,
                       category: news[item].Category,
                     })
                   }>

@@ -88,7 +88,9 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen name="Home" component={HomeScreen} options={{
         headerTitle: "FIK Information App",
       }}/>
-      <SearchStack.Screen name="News" component={NewsScreen}/>
+      <HomeStack.Screen name="NewsHome" component={NewsScreen} options={{
+        headerTitle: "News",
+      }}/>
     </HomeStack.Navigator>
   )};
   
@@ -104,6 +106,9 @@ const HomeStackScreen = ({navigation}) => {
       <SearchStack.Screen name="CategoryDetail" component={CategoryDetailScreen} options={{
         headerTitle: "Category"
       }}/>
+      <CategoryStack.Screen name="NewsCategory" component={NewsScreen} options={{
+        headerTitle: "News",
+      }}/>
     </CategoryStack.Navigator>
   )
 
@@ -116,6 +121,9 @@ const HomeStackScreen = ({navigation}) => {
     }}
     >
       <SearchStack.Screen name="Search" component={SearchScreen}/>
+      <SearchStack.Screen name="NewsSearch" component={NewsScreen} options={{
+        headerTitle: "News",
+      }}/>
     </SearchStack.Navigator>
   );
 
